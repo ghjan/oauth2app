@@ -4,14 +4,14 @@
 """OAuth 2.0 Token Generation"""
 
 
+try: import ujson as json
+except ImportError: import json
 from base64 import b64encode
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
-try: import simplejson as json
-except ImportError: import json
 from .exceptions import OAuth2Exception
-from .consts import ACCESS_TOKEN_EXPIRATION, REFRESH_TOKEN_LENGTH, ACCESS_TOKEN_LENGTH
+from .consts import ACCESS_TOKEN_EXPIRATION, REFRESH_TOKEN_LENGTH
 from .consts import AUTHENTICATION_METHOD, MAC, BEARER, MAC_KEY_LENGTH
 from .consts import REFRESHABLE
 from .lib.uri import normalize
@@ -156,7 +156,7 @@ class TokenGenerator(object):
         self.request = request
         try:
             self.validate()
-        except AccessTokenException:
+        except AccessTokenException as e:
             return self.error_response()
         return self.grant_response()
 
@@ -313,7 +313,7 @@ class TokenGenerator(object):
             e = self.error
         else:
             e = InvalidRequest("Access Denied.")
-        data = {'error': e.error, 'error_description': u'%s' % e.message}
+        data = {'error': e.error, 'error_description': '%s' % e.message}
         json_data = json.dumps(data)
         if self.callback is not None:
             json_data = "%s(%s);" % (self.callback, json_data)
@@ -394,11 +394,12 @@ class TokenGenerator(object):
 
     def _get_refresh_token(self):
         """Generate an access token after refresh authorization."""
-        self.access_token.token = KeyGenerator(ACCESS_TOKEN_LENGTH)()
         self.access_token.refresh_token = KeyGenerator(REFRESH_TOKEN_LENGTH)()
         self.access_token.expire = TimestampGenerator(ACCESS_TOKEN_EXPIRATION)()
-        access_ranges = AccessRange.objects.filter(key__in=self.scope) if self.scope else []
-        self.access_token.scope = access_ranges
+        if self.scope:
+            self.access_token.scope = AccessRange.objects.filter(key__in=self.scope)
+        elif not self.access_token.scope.exists():
+            self.access_token.scope = []
         self.access_token.save()
         return self.access_token
 
@@ -411,6 +412,6 @@ class TokenGenerator(object):
         if self.authentication_method == MAC:
             access_token.mac_key = KeyGenerator(MAC_KEY_LENGTH)()
         access_ranges = AccessRange.objects.filter(key__in=self.scope) if self.scope else []
-        self.access_token.scope = access_ranges
-        self.access_token.save()
-        return self.access_token
+        access_token.scope = access_ranges
+        access_token.save()
+        return access_token

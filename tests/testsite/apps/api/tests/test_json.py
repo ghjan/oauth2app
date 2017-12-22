@@ -1,11 +1,13 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
-try: import simplejson as json
-except ImportError: import json
+try:
+    import ujson as json
+except ImportError:
+    import json
 from .base import *
 
-class JSONTestCase(BaseTestCase):
 
+class JSONTestCase(BaseTestCase):
     def test_00_email(self):
         client = DjangoTestClient()
         token = self.get_token()

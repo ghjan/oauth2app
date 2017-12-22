@@ -4,12 +4,10 @@
 """OAuth 2.0 Authorization"""
 
 
-from django.http import HttpResponseRedirect
-try:
-    from django.http.request import absolute_http_url_re  # Django 1.5+
-except ImportError:
-    from django.http import absolute_http_url_re
-from urllib import urlencode
+try: import ujson as json
+except ImportError: import json
+from django.http import absolute_http_url_re, HttpResponseRedirect
+from urllib.parse import urlencode
 from .consts import ACCESS_TOKEN_EXPIRATION, REFRESHABLE
 from .consts import CODE, TOKEN, CODE_AND_TOKEN
 from .consts import AUTHENTICATION_METHOD, MAC, BEARER, MAC_KEY_LENGTH
@@ -137,7 +135,7 @@ class Authorizer(object):
         *Returns HTTP Response redirect*"""
         try:
             self.validate(request)
-        except AuthorizationException:
+        except AuthorizationException as e:
             # The request is malformed or invalid. Automatically
             # redirects to the provided redirect URL.
             return self.error_redirect()
@@ -234,7 +232,7 @@ class Authorizer(object):
             e = self.error
         else:
             e = AccessDenied("Access Denied.")
-        parameters = {'error': e.error, 'error_description': u'%s' % e.message}
+        parameters = {'error': e.error, 'error_description': '%s' % e.message}
         if self.state is not None:
             parameters['state'] = self.state
         redirect_uri = self.redirect_uri

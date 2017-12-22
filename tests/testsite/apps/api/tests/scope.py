@@ -1,19 +1,22 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
-try: import simplejson as json
-except ImportError: import json
-from base64 import b64encode
-from urlparse import urlparse, parse_qs
-from urllib import urlencode
-from django.utils import unittest
-from django.test.client import Client as DjangoTestClient
 try:
-    from django.contrib.auth import get_user_model  # Django 1.5+
-    User = get_user_model()
-except:
-    from django.contrib.auth.models import User
-from oauth2app.models import Client
+    import ujson as json
+except ImportError:
+    import json
+from base64 import b64encode
+from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlencode
+import unittest
+from django.test.client import Client as DjangoTestClient
 
+try:
+    from django.contrib.auth.models import User
+except:
+    from django.contrib.auth import get_user_model  # Django 1.5+
+
+    User = get_user_model()
+from oauth2app.models import Client
 
 USER_USERNAME = "testuser"
 USER_PASSWORD = "testpassword"
@@ -26,7 +29,6 @@ REDIRECT_URI = "http://example.com/callback"
 
 
 class ScopeTestCase(unittest.TestCase):
-
     user = None
     client_holder = None
     client_application = None
@@ -53,20 +55,20 @@ class ScopeTestCase(unittest.TestCase):
         user = DjangoTestClient()
         user.login(username=USER_USERNAME, password=USER_PASSWORD)
         parameters = {
-            "client_id":self.client_application.key,
-            "scope":"first_name",
-            "redirect_uri":REDIRECT_URI,
-            "response_type":"code"}
+            "client_id": self.client_application.key,
+            "scope": "first_name",
+            "redirect_uri": REDIRECT_URI,
+            "response_type": "code"}
         response = user.get("/oauth2/authorize_first_name?%s" % urlencode(parameters))
         qs = parse_qs(urlparse(response['location']).query)
         code = qs['code']
         client = DjangoTestClient()
         parameters = {
-            "client_id":self.client_application.key,
-            "grant_type":"authorization_code",
-            "code":code,
-            "redirect_uri":REDIRECT_URI,
-            "scope":"first_name"}
+            "client_id": self.client_application.key,
+            "grant_type": "authorization_code",
+            "code": code,
+            "redirect_uri": REDIRECT_URI,
+            "scope": "first_name"}
         basic_auth = b64encode("%s:%s" % (self.client_application.key, self.client_application.secret))
         response = client.get(
             "/oauth2/token",
@@ -99,18 +101,18 @@ class ScopeTestCase(unittest.TestCase):
         user = DjangoTestClient()
         user.login(username=USER_USERNAME, password=USER_PASSWORD)
         parameters = {
-            "client_id":self.client_application.key,
-            "redirect_uri":REDIRECT_URI,
-            "response_type":"code"}
+            "client_id": self.client_application.key,
+            "redirect_uri": REDIRECT_URI,
+            "response_type": "code"}
         response = user.get("/oauth2/authorize_no_scope?%s" % urlencode(parameters))
         qs = parse_qs(urlparse(response['location']).query)
         code = qs['code']
         client = DjangoTestClient()
         parameters = {
-            "client_id":self.client_application.key,
-            "grant_type":"authorization_code",
-            "code":code,
-            "redirect_uri":REDIRECT_URI}
+            "client_id": self.client_application.key,
+            "grant_type": "authorization_code",
+            "code": code,
+            "redirect_uri": REDIRECT_URI}
         basic_auth = b64encode("%s:%s" % (self.client_application.key, self.client_application.secret))
         response = client.get(
             "/oauth2/token",
@@ -143,20 +145,20 @@ class ScopeTestCase(unittest.TestCase):
         user = DjangoTestClient()
         user.login(username=USER_USERNAME, password=USER_PASSWORD)
         parameters = {
-            "client_id":self.client_application.key,
-            "scope":"first_name last_name",
-            "redirect_uri":REDIRECT_URI,
-            "response_type":"code"}
+            "client_id": self.client_application.key,
+            "scope": "first_name last_name",
+            "redirect_uri": REDIRECT_URI,
+            "response_type": "code"}
         response = user.get("/oauth2/authorize_first_and_last_name?%s" % urlencode(parameters))
         qs = parse_qs(urlparse(response['location']).query)
         code = qs['code']
         client = DjangoTestClient()
         parameters = {
-            "client_id":self.client_application.key,
-            "grant_type":"authorization_code",
-            "code":code,
-            "redirect_uri":REDIRECT_URI,
-            "scope":"first_name last_name"}
+            "client_id": self.client_application.key,
+            "grant_type": "authorization_code",
+            "code": code,
+            "redirect_uri": REDIRECT_URI,
+            "scope": "first_name last_name"}
         basic_auth = b64encode("%s:%s" % (self.client_application.key, self.client_application.secret))
         response = client.get(
             "/oauth2/token",

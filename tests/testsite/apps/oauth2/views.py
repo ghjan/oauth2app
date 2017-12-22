@@ -19,7 +19,7 @@ def authorize_not_refreshable(request):
     authorizer = Authorizer(refreshable=False)
     try:
         return authorizer(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURI as e:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")
 
 @login_required
@@ -27,7 +27,7 @@ def authorize_mac(request):
     authorizer = Authorizer(authentication_method=MAC)
     try:
         return authorizer(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURI as e:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")
 
 
@@ -37,7 +37,7 @@ def authorize_first_name(request):
     authorizer = Authorizer(scope=scope)
     try:
         return authorizer(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURI as e:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")
 
 
@@ -47,7 +47,7 @@ def authorize_first_and_last_name(request):
     authorizer = Authorizer(scope=scope)
     try:
         return authorizer(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURI as e:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")
 
 
@@ -57,7 +57,7 @@ def authorize_last_name(request):
     authorizer = Authorizer(scope=scope)
     try:
         return authorizer(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURI as e:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")
 
 
@@ -66,7 +66,7 @@ def authorize_no_scope(request):
     authorizer = Authorizer()
     try:
         return authorizer(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURI as e:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")
 
 
@@ -75,7 +75,7 @@ def authorize_code(request):
     authorizer = Authorizer(response_type=CODE)
     try:
         return authorizer(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURI as e:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")
 
 @login_required
@@ -83,7 +83,7 @@ def authorize_token_mac(request):
     authorizer = Authorizer(response_type=TOKEN, authentication_method=MAC)
     try:
         return authorizer(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURI as e:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")
 
 @login_required
@@ -91,7 +91,7 @@ def authorize_token(request):
     authorizer = Authorizer(response_type=TOKEN)
     try:
         return authorizer(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURI as e:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")
 
 @login_required
@@ -99,5 +99,5 @@ def authorize_code_and_token(request):
     authorizer = Authorizer(response_type=CODE_AND_TOKEN)
     try:
         return authorizer(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURI as e:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")

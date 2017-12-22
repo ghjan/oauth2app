@@ -1,10 +1,12 @@
-from django.conf.urls.defaults import patterns, include, url
-from django.conf import settings
+from django.conf.urls import include, url
+from django.contrib import admin
 
-urlpatterns = patterns('',
-    (r'^', include('mysite.apps.base.urls')),
-    (r'^account/', include('mysite.apps.account.urls')),
-    (r'^client/', include('mysite.apps.client.urls')),
-    (r'^oauth2/', include('mysite.apps.oauth2.urls')),
-    (r'^api/', include('mysite.apps.api.urls')),
-)
+admin.autodiscover()
+
+urlpatterns = [
+    url(r'^', include('mysite.apps.base.urls')),
+    url(r'^account/', include('mysite.apps.account.urls')),
+    url(r'^client/', include('mysite.apps.client.urls')),
+    url(r'^oauth2/', include('mysite.apps.oauth2.urls')),
+    url(r'^api/', include('mysite.apps.api.urls')),
+]
