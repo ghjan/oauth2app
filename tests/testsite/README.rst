@@ -4,6 +4,6 @@ The test site uses django.db.backends.sqlite3 and requires minimal configuration
     cd oauth2app/tests/testsite
     git checkout master
     pip install https://github.com/ghjan/oauth2app/tarball/master
-    pip install django-test-coverage
+    pip install django-coverage
     python manage.py test api
 

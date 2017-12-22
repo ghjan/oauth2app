@@ -1,9 +1,23 @@
 # Django settings for oauth2app example mysite project.
 
 import os
+import sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+# Root path of project
+PROJECT_ROOT = os.path.normpath(os.path.dirname(os.path.dirname(__file__)))
+
+# Add projects to python path
+PROJECT_PATH = os.path.join(PROJECT_ROOT, 'mysite')
+sys.path.insert(1, PROJECT_PATH)
+# Add apps to python path
+APP_PATH = os.path.join(PROJECT_ROOT, 'apps')
+sys.path.insert(1, APP_PATH)
+
+sys.path.insert(1, PROJECT_ROOT)
+print("sys.path:{}".format(sys.path))
 
 ADMINS = ()
 
@@ -21,7 +35,7 @@ DATABASES = {
 }
 
 FIXTURE_DIRS = (
-   os.path.join(os.path.dirname(__file__), 'apps/account/fixtures'),
+    os.path.join(os.path.dirname(__file__), 'apps/account/fixtures'),
 )
 
 TIME_ZONE = 'America/Chicago'
