@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 
-from urlparse import urlparse, parse_qs
-from urllib import urlencode
+from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlencode
 from django.utils import unittest
 from django.test.client import Client as DjangoTestClient
 from django.contrib.auth.models import User

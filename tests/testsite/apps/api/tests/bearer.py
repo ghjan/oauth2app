@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 
 try: import simplejson as json
-except ImportError: import json
+except ImportError: from . import json
 from .base import *
 
 

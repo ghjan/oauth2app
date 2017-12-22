@@ -1,6 +1,8 @@
-#-*- coding: utf-8 -*-
-from django.conf.urls.defaults import patterns, url
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import
+from django.conf.urls import url
+from mysite.apps.base.views import homepage
 
-urlpatterns = patterns('mysite.apps.base.views',
-    (r'^/?$',                      'homepage'),
-)
+urlpatterns = [
+    url(r'^/$', homepage, name='homepage'),
+]

@@ -47,8 +47,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Django OAuth 2.0 Server App'
-copyright = u'2011, John Wehr'
+project = 'Django OAuth 2.0 Server App'
+copyright = '2011, John Wehr'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -190,8 +190,8 @@ htmlhelp_basename = 'DjangoOAuth20Appdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'DjangoOAuth20App.tex', u'Django OAuth 2.0 App Documentation',
-   u'John Wehr', 'manual'),
+  ('index', 'DjangoOAuth20App.tex', 'Django OAuth 2.0 App Documentation',
+   'John Wehr', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -223,6 +223,6 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'djangooauth20app', u'Django OAuth 2.0 App Documentation',
-     [u'John Wehr'], 1)
+    ('index', 'djangooauth20app', 'Django OAuth 2.0 App Documentation',
+     ['John Wehr'], 1)
 ]

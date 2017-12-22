@@ -1,14 +1,14 @@
 #-*- coding: utf-8 -*-
 
 try: import simplejson as json
-except ImportError: import json
+except ImportError: from . import json
 from django.contrib.auth.models import User
 from oauth2app.models import Client
 from django.test.client import Client as DjangoTestClient
 from django.utils import unittest
 from base64 import b64encode
-from urlparse import urlparse, parse_qs
-from urllib import urlencode
+from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlencode
 
 USER_USERNAME = "testuser"
 USER_PASSWORD = "testpassword"

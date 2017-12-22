@@ -24,9 +24,9 @@ def authorize(request):
     authorizer = Authorizer()
     try:
         authorizer.validate(request)
-    except MissingRedirectURI, e:
+    except MissingRedirectURI as e:
         return HttpResponseRedirect("/oauth2/missing_redirect_uri")
-    except AuthorizationException, e:
+    except AuthorizationException as e:
         # The request is malformed or invalid. Automatically 
         # redirects to the provided redirect URL.
         return authorizer.error_redirect()

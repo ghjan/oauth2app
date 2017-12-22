@@ -21,7 +21,7 @@ Usage
 Tests
 -----
 
-* See https://github.com/hiidef/oauth2app/tree/develop/tests/testsite
+* See https://github.com/david/oauth2app/tree/develop/tests/testsite
 
 .. include:: ../tests/testsite/README.rst
 

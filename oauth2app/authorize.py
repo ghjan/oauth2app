@@ -7,7 +7,7 @@
 try: import simplejson as json
 except ImportError: import json
 from django.http import absolute_http_url_re, HttpResponseRedirect
-from urllib import urlencode
+from urllib.parse import urlencode
 from .consts import ACCESS_TOKEN_EXPIRATION, REFRESHABLE
 from .consts import CODE, TOKEN, CODE_AND_TOKEN
 from .consts import AUTHENTICATION_METHOD, MAC, BEARER, MAC_KEY_LENGTH
@@ -135,7 +135,7 @@ class Authorizer(object):
         *Returns HTTP Response redirect*"""
         try:
             self.validate(request)
-        except AuthorizationException, e:
+        except AuthorizationException as e:
             # The request is malformed or invalid. Automatically
             # redirects to the provided redirect URL.
             return self.error_redirect()
@@ -162,7 +162,7 @@ class Authorizer(object):
         self.request = request
         try:
             self._validate()
-        except AuthorizationException, e:
+        except AuthorizationException as e:
             self._check_redirect_uri()
             self.error = e
             raise e
@@ -232,7 +232,7 @@ class Authorizer(object):
             e = self.error
         else:
             e = AccessDenied("Access Denied.")
-        parameters = {'error': e.error, 'error_description': u'%s' % e.message}
+        parameters = {'error': e.error, 'error_description': '%s' % e.message}
         if self.state is not None:
             parameters['state'] = self.state
         redirect_uri = self.redirect_uri

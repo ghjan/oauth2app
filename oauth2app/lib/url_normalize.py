@@ -32,8 +32,8 @@ __version__ = 1.1
 
 import re
 import unicodedata
-import urlparse
-from urllib import quote, unquote
+import urllib.parse
+from urllib.parse import quote, unquote
 
 
 def url_normalize(url, charset='utf-8'):
@@ -50,7 +50,7 @@ def url_normalize(url, charset='utf-8'):
     """
 
     def _clean(string):
-        string = unicode(unquote(string), 'utf-8', 'replace')
+        string = str(unquote(string), 'utf-8', 'replace')
         return unicodedata.normalize('NFC', string).encode('utf-8')
 
     default_port = {
@@ -65,7 +65,7 @@ def url_normalize(url, charset='utf-8'):
         'snews': 563,
         'snntp': 563,
     }
-    if isinstance(url, unicode):
+    if isinstance(url, str):
         url = url.encode(charset, 'ignore')
 
     # if there is no scheme use http as default scheme
@@ -76,7 +76,7 @@ def url_normalize(url, charset='utf-8'):
     url = url.replace('#!', '?_escaped_fragment_=')
 
     # splitting url to useful parts
-    scheme, auth, path, query, fragment = urlparse.urlsplit(url.strip())
+    scheme, auth, path, query, fragment = urllib.parse.urlsplit(url.strip())
     (userinfo, host, port) = re.search('([^@]*@)?([^:]*):?(.*)', auth).groups()
 
     # Always provide the URI scheme in lowercase characters.
@@ -128,7 +128,7 @@ def url_normalize(url, charset='utf-8'):
 
     # For schemes that define a port, use an empty port if the default is
     # desired
-    if port and scheme in default_port.keys():
+    if port and scheme in list(default_port.keys()):
         if port.isdigit():
             port = str(int(port))
             if int(port) == default_port[scheme]:
@@ -140,7 +140,7 @@ def url_normalize(url, charset='utf-8'):
         auth += ":" + port
     if url.endswith("#") and query == "" and fragment == "":
         path += "#"
-    return urlparse.urlunsplit((scheme, auth, path, query, fragment))
+    return urllib.parse.urlunsplit((scheme, auth, path, query, fragment))
 
 if __name__ == "__main__":
     import unittest
@@ -277,7 +277,7 @@ if __name__ == "__main__":
                 assert url_normalize(original) == normalized, (original, normalized, url_normalize(original))
         return test()
 
-    for (original, normalized) in tests2.items():
+    for (original, normalized) in list(tests2.items()):
         suite.addTest(testcase2(original, normalized))
 
     """ execute tests """

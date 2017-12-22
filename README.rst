@@ -3,8 +3,8 @@ Other projects have been able to devote the time and energy necessary to maintai
 
 
 
-* See http://hiidef.github.com/oauth2app for documentation. 
-* See https://github.com/hiidef/oauth2app for source code.
+* See http://hiidef.github.com/oauth2app for documentation.
+* See https://github.com:david/oauth2app for source code.
 * Based on http://code.google.com/p/django-oauth2
 * Support for OAuth 2.0 draft 16, http://tools.ietf.org/html/draft-ietf-oauth-v2-16
 
@@ -13,7 +13,7 @@ Installation
 
 If easy_install is available, you can use: ::
 
-    easy_install https://github.com/hiidef/oauth2app/tarball/master
+    easy_install https://github.com:david/oauth2app/tarball/master
 
 Introduction
 ------------
@@ -135,6 +135,6 @@ If you want to authenticate JSON requests try the JSONAuthenticator. ::
 Examples
 --------
 
-An `example Django project <https://github.com/hiidef/oauth2app/tree/develop/examples/mysite>`_ demonstrating client and server functionality is available in the repository.
+An `example Django project <https://github.com:david/oauth2app/tree/develop/examples/mysite>`_ demonstrating client and server functionality is available in the repository.
 
-https://github.com/hiidef/oauth2app/tree/develop/examples/mysite
+https://github.com:david/oauth2app/tree/develop/examples/mysite

@@ -17,5 +17,5 @@ setup(
     description="Django OAuth 2.0 Server App",
     license="MIT License",
     keywords="django oauth2 oauth app server",
-    url="https://github.com/hiidef/oauth2app",
+    url="https://github.com/david/oauth2app",
 )
