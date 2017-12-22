@@ -4,5 +4,5 @@ from django.conf.urls import url
 from mysite.apps.base.views import homepage
 
 urlpatterns = [
-    url(r'^/$', homepage, name='homepage'),
+    url(r'^$', homepage, name='homepage'),
 ]

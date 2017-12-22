@@ -12,16 +12,16 @@ MANAGERS = ADMINS
 
 # Root path of project
 PROJECT_ROOT = os.path.normpath(os.path.dirname(os.path.dirname(__file__)))
+# Add SITE_ROOT to python path
+SITE_ROOT = os.path.join(PROJECT_ROOT, 'mysite')
+sys.path.insert(1, SITE_ROOT)
 
-# Add projects to python path
-PROJECT_PATH = os.path.join(PROJECT_ROOT, 'mysite')
-sys.path.insert(1, PROJECT_PATH)
 # Add apps to python path
-APP_PATH = os.path.join(PROJECT_ROOT, 'apps')
+APP_PATH = os.path.join(SITE_ROOT, 'apps')
 sys.path.insert(1, APP_PATH)
 
+# add PROJECT_ROOT to python path
 sys.path.insert(1, PROJECT_ROOT)
-print("sys.path:{}".format(sys.path))
 
 DATABASES = {
     'default': {
@@ -54,7 +54,7 @@ MEDIA_ROOT = ''
 
 MEDIA_URL = ''
 
-STATIC_ROOT = ''
+STATIC_ROOT = '/data/media/oauth2app/example/mysite/static/'
 
 STATIC_URL = '/static/'
 
@@ -78,34 +78,60 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
 )
 
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-)
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
 ROOT_URLCONF = 'mysite.urls'
 
-TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
+MY_TEMPLATE_DIRS = [
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(SITE_ROOT, 'templates'),
+    os.path.join(SITE_ROOT, 'static'),
+]
 
-INSTALLED_APPS = (
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': MY_TEMPLATE_DIRS,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'debug': DEBUG,
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mysite.apps.base',
-    'mysite.apps.client',
-    'mysite.apps.account',
-    'mysite.apps.oauth2',
-    'mysite.apps.api',
+    'apps.base',
+    'apps.client',
+    'apps.account',
+    'apps.oauth2',
+    'apps.api',
     'crispy_forms',
     'oauth2app',
     'django_nose',
-)
+]
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
@@ -128,3 +154,5 @@ LOGGING = {
 }
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
+
+ALLOWED_HOSTS = ['*', ]
