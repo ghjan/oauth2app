@@ -127,4 +127,4 @@ LOGGING = {
     }
 }
 
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_TEMPLATE_PACK = 'uni_form'
