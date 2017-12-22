@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load uni_form_tags %}
+{% load crispy_forms_tags %}
 
 {% block title %}Authorize “{{ client.name }}”{% endblock %}
 
@@ -27,7 +27,7 @@
 	</div>
 	
 	<div class="form_container">
-	{% uni_form form helper %}
+	{% crispy_forms form helper %}
 	</div>
 	
 	<script type="text/javascript">

@@ -4,7 +4,7 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from uni_form.helpers import FormHelper, Submit, Reset
+from crispy_forms.helper import FormHelper, Submit, Reset
 from django.contrib.auth.decorators import login_required
 from oauth2app.authorize import Authorizer, MissingRedirectURI, AuthorizationException
 from oauth2app.authorize import UnvalidatedRequest, UnauthenticatedUser

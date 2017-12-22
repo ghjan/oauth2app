@@ -102,7 +102,7 @@ INSTALLED_APPS = (
     'mysite.apps.account',
     'mysite.apps.oauth2',
     'mysite.apps.api',
-    'uni_form',
+    'crispy_forms',
     'oauth2app',
     'django_nose',
 )
@@ -126,3 +126,5 @@ LOGGING = {
         },
     }
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

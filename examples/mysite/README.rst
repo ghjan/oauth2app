@@ -5,7 +5,7 @@ The example site uses django.db.backends.sqlite3 and requires minimal configurat
     git checkout master
     pip install https://github.com/ghjan/oauth2app/tarball/master
     pip install django
-    pip install django-uni-form
+    pip install django-crispy-forms
     python manage.py makemigrations
     python manage.py migrate
     python manage.py runserver

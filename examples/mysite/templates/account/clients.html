@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load uni_form_tags %}
+{% load crispy_forms_tags %}
 
 {% block title %}Your Clients{% endblock %}
 
@@ -42,7 +42,7 @@
 	</div>
 	
 	<div class="form_container">
-	{% uni_form form form.helper %}
+	{% crispy_forms form form.helper %}
 	</div>
 	
 	<script type="text/javascript">
